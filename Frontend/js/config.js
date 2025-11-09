@@ -3,33 +3,34 @@
 // =====================================
 
 const CONFIG = {
-    // Midtrans Configuration
     MIDTRANS: {
-        CLIENT_KEY: 'TOKEN_KEY_YANG_BARU',
+        CLIENT_KEY: 'TOKEN',
         SERVER_URL: 'http://localhost:3000/api'
     },
 
-    // dslrBooth Configuration
     DSLR_BOOTH: {
         API_URL: 'http://localhost:1500/api/start',
         PASSWORD: 'TVfJT8hT40jUxHNI',
         MODE: 'print'
     },
 
-    // Payment Configuration
     PAYMENT: {
-        AMOUNT: 25000,
-        ITEM_NAME: 'Photobox Session',
-        PACKAGE: 'standard',
-        CHECK_INTERVAL: 3000 // Check every 3 seconds
+        CHECK_INTERVAL: 3000,
+        EXPIRY_MINUTES: 15
     },
 
-    // Customer Default Info
+    PACKAGES: [
+        { id: 'collage', name: 'Photobooth Collage', price: 65000 },
+        { id: 'strip', name: 'Photobooth Strip', price: 45000 },
+        { id: 'high-angle', name: 'High Angle', price: 45000 },
+        { id: 'wide-angle', name: 'Wide Angle', price: 45000 },
+        { id: 'pas-foto', name: 'Pas Foto', price: 45000 }
+    ],
+
     CUSTOMER: {
         NAME: 'Customer',
         EMAIL: 'customer@example.com'
     }
 };
 
-// Freeze configuration to prevent modifications
 Object.freeze(CONFIG);

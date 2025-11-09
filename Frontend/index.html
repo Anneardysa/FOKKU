@@ -10,45 +10,208 @@
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-gFbkncebi_hsFuhk"></script>
 </head>
 <body>
-    <!-- Isi body tetap sama seperti sebelumnya -->
     <div class="container">
+        <!-- Logo Section -->
         <div class="logo">
-            <h1>📸 Photobox</h1>
+            <div class="logo-icon">📸</div>
+            <h1>Photobox</h1>
             <p>Self Photo Studio</p>
         </div>
 
+        <!-- Success Message -->
         <div class="success-message" id="successMessage">
-            ✓ Pembayaran berhasil! Mengarahkan ke booth...
+            <div class="success-icon">✓</div>
+            <div class="success-text">
+                <strong>Pembayaran Berhasil!</strong>
+                <p>Mengarahkan ke booth...</p>
+            </div>
         </div>
 
-        <div class="status-card">
-            <h2>Paket Foto</h2>
-            <div class="price">Rp 25.000</div>
-            <p class="price-subtitle">4 foto + 1 soft file</p>
+        <!-- Package Selection -->
+        <div id="packageSelection">
+            <h2 class="section-title">Pilih Paket Foto</h2>
+            
+            <div class="package-list">
+                <!-- Paket 1: Collage -->
+                <div class="package-item" data-package="collage" data-price="65000" onclick="selectPackage(this)">
+                    <div class="package-main">
+                        <div class="package-icon">📸</div>
+                        <div class="package-info">
+                            <h3>Photobooth Collage</h3>
+                            <p class="package-subtitle">4 pose dalam 1 frame</p>
+                        </div>
+                        <div class="package-price">
+                            <div class="price-amount">Rp 65K</div>
+                            <div class="package-arrow">›</div>
+                        </div>
+                    </div>
+                    <div class="package-features">
+                        <span class="feature-tag">4 Foto Collage</span>
+                        <span class="feature-tag">1 Soft File</span>
+                        <span class="feature-tag">Cetak Instan</span>
+                    </div>
+                </div>
+
+                <!-- Paket 2: Strip -->
+                <div class="package-item" data-package="strip" data-price="45000" onclick="selectPackage(this)">
+                    <div class="package-main">
+                        <div class="package-icon">📷</div>
+                        <div class="package-info">
+                            <h3>Photobooth Strip</h3>
+                            <p class="package-subtitle">4 foto strip vertikal</p>
+                        </div>
+                        <div class="package-price">
+                            <div class="price-amount">Rp 45K</div>
+                            <div class="package-arrow">›</div>
+                        </div>
+                    </div>
+                    <div class="package-features">
+                        <span class="feature-tag">4 Foto Strip</span>
+                        <span class="feature-tag">1 Soft File</span>
+                        <span class="feature-tag">Cetak Instan</span>
+                    </div>
+                </div>
+
+                <!-- Paket 3: High Angle -->
+                <div class="package-item" data-package="high-angle" data-price="45000" onclick="selectPackage(this)">
+                    <div class="package-main">
+                        <div class="package-icon">🎯</div>
+                        <div class="package-info">
+                            <h3>High Angle</h3>
+                            <p class="package-subtitle">Sudut dari atas</p>
+                        </div>
+                        <div class="package-price">
+                            <div class="price-amount">Rp 45K</div>
+                            <div class="package-arrow">›</div>
+                        </div>
+                    </div>
+                    <div class="package-features">
+                        <span class="feature-tag">4 Foto</span>
+                        <span class="feature-tag">1 Soft File</span>
+                        <span class="feature-tag">Cetak Instan</span>
+                    </div>
+                </div>
+
+                <!-- Paket 4: Wide Angle -->
+                <div class="package-item" data-package="wide-angle" data-price="45000" onclick="selectPackage(this)">
+                    <div class="package-main">
+                        <div class="package-icon">🎬</div>
+                        <div class="package-info">
+                            <h3>Wide Angle</h3>
+                            <p class="package-subtitle">Foto lebar full body</p>
+                        </div>
+                        <div class="package-price">
+                            <div class="price-amount">Rp 45K</div>
+                            <div class="package-arrow">›</div>
+                        </div>
+                    </div>
+                    <div class="package-features">
+                        <span class="feature-tag">4 Foto</span>
+                        <span class="feature-tag">1 Soft File</span>
+                        <span class="feature-tag">Cetak Instan</span>
+                    </div>
+                </div>
+
+                <!-- Paket 5: Pas Foto -->
+                <div class="package-item" data-package="pas-foto" data-price="45000" onclick="selectPackage(this)">
+                    <div class="package-main">
+                        <div class="package-icon">🆔</div>
+                        <div class="package-info">
+                            <h3>Pas Foto</h3>
+                            <p class="package-subtitle">Pas foto resmi</p>
+                        </div>
+                        <div class="package-price">
+                            <div class="price-amount">Rp 45K</div>
+                            <div class="package-arrow">›</div>
+                        </div>
+                    </div>
+                    <div class="package-features">
+                        <span class="feature-tag">Multiple Size</span>
+                        <span class="feature-tag">1 Soft File</span>
+                        <span class="feature-tag">Background Merah/Biru</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue Button -->
+            <button class="btn-primary" id="continueBtn" style="display: none;" onclick="proceedToCustomerForm()">
+                <span>Lanjutkan</span>
+                <span class="btn-icon">→</span>
+            </button>
         </div>
 
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
+        <!-- Customer Form -->
+        <div class="customer-form-wrapper" id="customerForm" style="display: none;">
+            <button class="back-button" onclick="backToPackageSelection()">
+                <span class="back-icon">←</span>
+                <span>Paket</span>
+            </button>
+
+            <h2 class="section-title">Data Customer</h2>
+            
+            <!-- Selected Package Preview -->
+            <div class="selected-package-preview" id="selectedPackagePreview">
+                <div class="preview-left">
+                    <div class="preview-icon" id="previewIcon">📸</div>
+                    <div class="preview-info">
+                        <div class="preview-label">Paket Terpilih</div>
+                        <div class="preview-name" id="selectedPackageName">Photobooth Collage</div>
+                    </div>
+                </div>
+                <div class="preview-price" id="selectedPackagePrice">Rp 65K</div>
+            </div>
+            
+            <form id="customerDataForm" onsubmit="handleCustomerSubmit(event)">
+                <!-- Name Input -->
+                <div class="input-group">
+                    <label for="customerName">Nama Lengkap</label>
+                    <input 
+                        type="text" 
+                        id="customerName" 
+                        name="customerName" 
+                        placeholder="Masukkan nama lengkap"
+                        required
+                        minlength="3"
+                    >
+                </div>
+
+                <!-- Phone Input -->
+                <div class="input-group">
+                    <label for="customerPhone">Nomor HP</label>
+                    <input 
+                        type="tel" 
+                        id="customerPhone" 
+                        name="customerPhone" 
+                        placeholder="08xxxxxxxxxx"
+                        required
+                        pattern="[0-9]{10,13}"
+                    >
+                </div>
+
+                <!-- Email Input -->
+                <div class="input-group">
+                    <label for="customerEmail">Email</label>
+                    <input 
+                        type="email" 
+                        id="customerEmail" 
+                        name="customerEmail" 
+                        placeholder="email@example.com"
+                        required
+                    >
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-primary">
+                    <span>Lanjut ke Pembayaran</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading-overlay" id="loading">
+            <div class="loading-spinner"></div>
             <p>Memproses pembayaran...</p>
-        </div>
-
-        <button class="btn btn-primary" id="startBtn">
-            Mulai Sesi Foto
-        </button>
-
-        <div class="features">
-            <div class="feature-item">
-                <div class="feature-icon">✓</div>
-                <div class="feature-text">Cetak foto berkualitas tinggi</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">✓</div>
-                <div class="feature-text">Soft file dikirim via email</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">✓</div>
-                <div class="feature-text">Props dan background menarik</div>
-            </div>
         </div>
     </div>
 
@@ -56,8 +219,5 @@
     <script src="js/config.js"></script>
     <script src="js/payment.js"></script>
     <script src="js/booth.js"></script>
-    <script>
-        document.getElementById('startBtn').addEventListener('click', startPaymentQRIS);
-    </script>
 </body>
 </html>
