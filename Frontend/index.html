@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobox - Self Photo Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Midtrans Snap.js -->
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-gFbkncebi_hsFuhk"></script>
+</head>
+<body>
+    <!-- Isi body tetap sama seperti sebelumnya -->
+    <div class="container">
+        <div class="logo">
+            <h1>📸 Photobox</h1>
+            <p>Self Photo Studio</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✓ Pembayaran berhasil! Mengarahkan ke booth...
+        </div>
+
+        <div class="status-card">
+            <h2>Paket Foto</h2>
+            <div class="price">Rp 25.000</div>
+            <p class="price-subtitle">4 foto + 1 soft file</p>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Memproses pembayaran...</p>
+        </div>
+
+        <button class="btn btn-primary" id="startBtn">
+            Mulai Sesi Foto
+        </button>
+
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">Cetak foto berkualitas tinggi</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">Soft file dikirim via email</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">Props dan background menarik</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/payment.js"></script>
+    <script src="js/booth.js"></script>
+    <script>
+        document.getElementById('startBtn').addEventListener('click', startPaymentQRIS);
+    </script>
+</body>
+</html>
