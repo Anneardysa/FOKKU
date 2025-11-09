@@ -1,66 +1,31 @@
 // =====================================
-// PAYMENT HANDLER WITH PACKAGE SELECTION
+// PAYMENT HANDLER WITH CUSTOMER FORM
 // =====================================
 
 let currentOrderId = null;
 let paymentCheckInterval = null;
 let countdownInterval = null;
 let expiryTime = null;
-let customerData = null;
-let selectedPackage = null; // Store selected package
-
-const packageIcons = {
-    'collage': '📸',
-    'strip': '📷',
-    'high-angle': '🎯',
-    'wide-angle': '🎬',
-    'pas-foto': '🆔'
-};
+let customerData = null; // Store customer data
 
 /**
- * Select package
+ * Show customer form
  */
-function selectPackage(element) {
-    // Remove previous selection
-    document.querySelectorAll('.package-card').forEach(card => {
-        card.classList.remove('selected');
-    });
-    
-    // Add selection to clicked card
-    element.classList.add('selected');
-    
-    // Store package data
-    selectedPackage = {
-        name: element.querySelector('.package-name').textContent,
-        price: parseInt(element.getAttribute('data-price')),
-        package_id: element.getAttribute('data-package')
-    };
-    
-    console.log('Package selected:', selectedPackage);
-    
-    // Show continue button
-    document.getElementById('continueBtn').style.display = 'block';
-}
-
-/**
- * Proceed to customer form
- */
-function proceedToCustomerForm() {
-    if (!selectedPackage) {
-        alert('Silakan pilih paket terlebih dahulu!');
-        return;
-    }
-    
-    document.getElementById('packageSelection').style.display = 'none';
-    
+function showCustomerForm() {
+    const startBtn = document.getElementById('startBtn');
+    const packageCard = document.getElementById('packageCard');
     const customerForm = document.getElementById('customerForm');
+    const featuresSection = document.getElementById('featuresSection');
+
+    // Hide package card and features
+    packageCard.style.display = 'none';
+    featuresSection.style.display = 'none';
+    startBtn.style.display = 'none';
+
+    // Show customer form
     customerForm.style.display = 'block';
-    
-    // Update selected package info dengan icon
-    document.getElementById('previewIcon').textContent = packageIcons[selectedPackage.package_id];
-    document.getElementById('selectedPackageName').textContent = selectedPackage.name;
-    document.getElementById('selectedPackagePrice').textContent = formatPrice(selectedPackage.price);
-    
+
+    // Focus on first input
     setTimeout(() => {
         document.getElementById('customerName').focus();
     }, 100);
@@ -69,13 +34,20 @@ function proceedToCustomerForm() {
 /**
  * Back to package selection
  */
-function backToPackageSelection() {
-    // Show package selection
-    document.getElementById('packageSelection').style.display = 'block';
-    
+function backToPackage() {
+    const packageCard = document.getElementById('packageCard');
+    const customerForm = document.getElementById('customerForm');
+    const featuresSection = document.getElementById('featuresSection');
+    const startBtn = document.getElementById('startBtn');
+
+    // Show package card
+    packageCard.style.display = 'block';
+    featuresSection.style.display = 'block';
+    startBtn.style.display = 'block';
+
     // Hide customer form
-    document.getElementById('customerForm').style.display = 'none';
-    
+    customerForm.style.display = 'none';
+
     // Reset form
     document.getElementById('customerDataForm').reset();
 }
@@ -97,7 +69,7 @@ function handleCustomerSubmit(event) {
         return;
     }
 
-    // Validate phone number
+    // Validate phone number (Indonesia format)
     if (!/^(08|628|\+628)[0-9]{8,11}$/.test(phone)) {
         alert('Nomor HP tidak valid!\nFormat: 08xxxxxxxxxx atau 628xxxxxxxxxx');
         return;
@@ -117,7 +89,6 @@ function handleCustomerSubmit(event) {
     };
 
     console.log('Customer data:', customerData);
-    console.log('Selected package:', selectedPackage);
 
     // Hide form and proceed to payment
     document.getElementById('customerForm').style.display = 'none';
@@ -127,7 +98,7 @@ function handleCustomerSubmit(event) {
 }
 
 /**
- * Start QRIS payment with customer data and package
+ * Start QRIS payment with customer data
  */
 async function startPaymentQRIS() {
     const loading = document.getElementById('loading');
@@ -135,18 +106,17 @@ async function startPaymentQRIS() {
     try {
         loading.classList.add('active');
 
-        console.log('Creating QRIS transaction...');
+        console.log('Creating QRIS transaction with customer data...');
 
-        // Create QRIS transaction with customer details and package
+        // Create QRIS transaction with customer details
         const response = await fetch(`${CONFIG.MIDTRANS.SERVER_URL}/create-qris-transaction`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                amount: selectedPackage.price,
-                item_name: selectedPackage.name,
-                package_id: selectedPackage.package_id,
+                amount: CONFIG.PAYMENT.AMOUNT,
+                item_name: CONFIG.PAYMENT.ITEM_NAME,
                 customer_name: customerData.name,
                 customer_email: customerData.email,
                 customer_phone: customerData.phone
@@ -192,7 +162,7 @@ async function startPaymentQRIS() {
 }
 
 /**
- * Display QR Code with package and customer info
+ * Display QR Code directly with countdown
  */
 function displayQRCodeDirect(qrUrl, qrString, orderId) {
     const container = document.querySelector('.container');
@@ -202,28 +172,18 @@ function displayQRCodeDirect(qrUrl, qrString, orderId) {
     qrDisplay.id = 'qrDisplay';
     qrDisplay.innerHTML = `
         <h3 style="color: #1d1d1f; margin-bottom: 8px;">Scan QR untuk Pembayaran</h3>
-        <p style="color: #86868b; font-size: 14px; margin-bottom: 16px;">Gunakan aplikasi pembayaran QRIS Anda</p>
+        <p style="color: #86868b; font-size: 14px; margin-bottom: 8px;">Gunakan aplikasi pembayaran QRIS Anda</p>
         
-        <!-- Package & Customer Info -->
-        <div style="background: #f5f5f7; border-radius: 12px; padding: 16px; margin-bottom: 16px; text-align: left;">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
-                <div>
-                    <div style="font-size: 12px; color: #86868b; margin-bottom: 4px;">Paket</div>
-                    <div style="font-size: 16px; font-weight: 700; color: #1d1d1f;">${selectedPackage.name}</div>
-                </div>
-                <div style="font-size: 22px; font-weight: 700; color: #667eea;">${formatPrice(selectedPackage.price)}</div>
-            </div>
-            <div style="border-top: 1px solid #e0e0e0; padding-top: 12px;">
-                <div style="font-size: 12px; color: #86868b; margin-bottom: 4px;">Customer</div>
-                <div style="font-size: 14px; font-weight: 600; color: #1d1d1f;">${customerData.name}</div>
-                <div style="font-size: 13px; color: #86868b; margin-top: 2px;">${customerData.phone}</div>
-            </div>
+        <!-- Customer Info -->
+        <div style="background: #f5f5f7; border-radius: 10px; padding: 12px; margin-bottom: 16px; text-align: left;">
+            <div style="font-size: 12px; color: #86868b; margin-bottom: 4px;">Nama</div>
+            <div style="font-size: 14px; font-weight: 600; color: #1d1d1f;">${customerData.name}</div>
         </div>
         
         <!-- Countdown Timer -->
         <div class="countdown-timer" id="countdownTimer">
             <h4>Waktu Tersisa</h4>
-            <div class="countdown-display" id="countdownDisplay">${CONFIG.PAYMENT.EXPIRY_MINUTES}:00</div>
+            <div class="countdown-display" id="countdownDisplay">15:00</div>
         </div>
         
         <div class="qr-code">
@@ -234,7 +194,7 @@ function displayQRCodeDirect(qrUrl, qrString, orderId) {
         <p class="payment-info">Menunggu pembayaran...</p>
         <div class="order-id" style="margin-top: 12px; font-size: 12px; color: #86868b;">Order ID: ${orderId}</div>
         
-        <!-- Mock Button -->
+        <!-- Mock Button untuk Testing -->
         <button 
             onclick="mockPaymentSuccess()" 
             style="margin-top: 20px; padding: 12px 24px; background: #34c759; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;">
@@ -244,13 +204,6 @@ function displayQRCodeDirect(qrUrl, qrString, orderId) {
     
     const loading = document.getElementById('loading');
     container.insertBefore(qrDisplay, loading);
-}
-
-/**
- * Format price to IDR
- */
-function formatPrice(price) {
-    return 'Rp ' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
 /**
@@ -365,7 +318,7 @@ function startPaymentStatusCheck() {
  * Handle successful payment
  */
 function onPaymentSuccess() {
-    console.log('✅ Payment successful!');
+    console.log('Payment successful!');
     
     const successMessage = document.getElementById('successMessage');
     const loading = document.getElementById('loading');
@@ -375,7 +328,6 @@ function onPaymentSuccess() {
     successMessage.classList.add('active');
     loading.classList.add('active');
 
-    // Trigger booth dengan package info
     startBoothSession();
 }
 

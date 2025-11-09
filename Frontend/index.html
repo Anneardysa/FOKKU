@@ -13,158 +13,30 @@
     <div class="container">
         <!-- Logo Section -->
         <div class="logo">
-            <div class="logo-icon">📸</div>
-            <h1>Photobox</h1>
+            <h1>📸 Photobox</h1>
             <p>Self Photo Studio</p>
         </div>
 
         <!-- Success Message -->
         <div class="success-message" id="successMessage">
-            <div class="success-icon">✓</div>
-            <div class="success-text">
-                <strong>Pembayaran Berhasil!</strong>
-                <p>Mengarahkan ke booth...</p>
-            </div>
+            ✓ Pembayaran berhasil! Mengarahkan ke booth...
         </div>
 
-        <!-- Package Selection -->
-        <div id="packageSelection">
-            <h2 class="section-title">Pilih Paket Foto</h2>
-            
-            <div class="package-list">
-                <!-- Paket 1: Collage -->
-                <div class="package-item" data-package="collage" data-price="65000" onclick="selectPackage(this)">
-                    <div class="package-main">
-                        <div class="package-icon">📸</div>
-                        <div class="package-info">
-                            <h3>Photobooth Collage</h3>
-                            <p class="package-subtitle">4 pose dalam 1 frame</p>
-                        </div>
-                        <div class="package-price">
-                            <div class="price-amount">Rp 65K</div>
-                            <div class="package-arrow">›</div>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <span class="feature-tag">4 Foto Collage</span>
-                        <span class="feature-tag">1 Soft File</span>
-                        <span class="feature-tag">Cetak Instan</span>
-                    </div>
-                </div>
-
-                <!-- Paket 2: Strip -->
-                <div class="package-item" data-package="strip" data-price="45000" onclick="selectPackage(this)">
-                    <div class="package-main">
-                        <div class="package-icon">📷</div>
-                        <div class="package-info">
-                            <h3>Photobooth Strip</h3>
-                            <p class="package-subtitle">4 foto strip vertikal</p>
-                        </div>
-                        <div class="package-price">
-                            <div class="price-amount">Rp 45K</div>
-                            <div class="package-arrow">›</div>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <span class="feature-tag">4 Foto Strip</span>
-                        <span class="feature-tag">1 Soft File</span>
-                        <span class="feature-tag">Cetak Instan</span>
-                    </div>
-                </div>
-
-                <!-- Paket 3: High Angle -->
-                <div class="package-item" data-package="high-angle" data-price="45000" onclick="selectPackage(this)">
-                    <div class="package-main">
-                        <div class="package-icon">🎯</div>
-                        <div class="package-info">
-                            <h3>High Angle</h3>
-                            <p class="package-subtitle">Sudut dari atas</p>
-                        </div>
-                        <div class="package-price">
-                            <div class="price-amount">Rp 45K</div>
-                            <div class="package-arrow">›</div>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <span class="feature-tag">4 Foto</span>
-                        <span class="feature-tag">1 Soft File</span>
-                        <span class="feature-tag">Cetak Instan</span>
-                    </div>
-                </div>
-
-                <!-- Paket 4: Wide Angle -->
-                <div class="package-item" data-package="wide-angle" data-price="45000" onclick="selectPackage(this)">
-                    <div class="package-main">
-                        <div class="package-icon">🎬</div>
-                        <div class="package-info">
-                            <h3>Wide Angle</h3>
-                            <p class="package-subtitle">Foto lebar full body</p>
-                        </div>
-                        <div class="package-price">
-                            <div class="price-amount">Rp 45K</div>
-                            <div class="package-arrow">›</div>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <span class="feature-tag">4 Foto</span>
-                        <span class="feature-tag">1 Soft File</span>
-                        <span class="feature-tag">Cetak Instan</span>
-                    </div>
-                </div>
-
-                <!-- Paket 5: Pas Foto -->
-                <div class="package-item" data-package="pas-foto" data-price="45000" onclick="selectPackage(this)">
-                    <div class="package-main">
-                        <div class="package-icon">🆔</div>
-                        <div class="package-info">
-                            <h3>Pas Foto</h3>
-                            <p class="package-subtitle">Pas foto resmi</p>
-                        </div>
-                        <div class="package-price">
-                            <div class="price-amount">Rp 45K</div>
-                            <div class="package-arrow">›</div>
-                        </div>
-                    </div>
-                    <div class="package-features">
-                        <span class="feature-tag">Multiple Size</span>
-                        <span class="feature-tag">1 Soft File</span>
-                        <span class="feature-tag">Background Merah/Biru</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Continue Button -->
-            <button class="btn-primary" id="continueBtn" style="display: none;" onclick="proceedToCustomerForm()">
-                <span>Lanjutkan</span>
-                <span class="btn-icon">→</span>
-            </button>
+        <!-- Paket Selection -->
+        <div class="status-card" id="packageCard">
+            <h2>Pilih Paket Foto</h2>
+            <div class="price">Rp 25.000</div>
+            <p class="price-subtitle">4 foto + 1 soft file</p>
         </div>
 
-        <!-- Customer Form -->
-        <div class="customer-form-wrapper" id="customerForm" style="display: none;">
-            <button class="back-button" onclick="backToPackageSelection()">
-                <span class="back-icon">←</span>
-                <span>Paket</span>
-            </button>
-
-            <h2 class="section-title">Data Customer</h2>
-            
-            <!-- Selected Package Preview -->
-            <div class="selected-package-preview" id="selectedPackagePreview">
-                <div class="preview-left">
-                    <div class="preview-icon" id="previewIcon">📸</div>
-                    <div class="preview-info">
-                        <div class="preview-label">Paket Terpilih</div>
-                        <div class="preview-name" id="selectedPackageName">Photobooth Collage</div>
-                    </div>
-                </div>
-                <div class="preview-price" id="selectedPackagePrice">Rp 65K</div>
-            </div>
+        <!-- Customer Form (Hidden initially) -->
+        <div class="customer-form" id="customerForm" style="display: none;">
+            <h3 style="color: #1d1d1f; margin-bottom: 20px; text-align: center;">Data Customer</h3>
             
             <form id="customerDataForm" onsubmit="handleCustomerSubmit(event)">
-                <!-- Name Input -->
-                <div class="input-group">
-                    <label for="customerName">Nama Lengkap</label>
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="customerName">Nama Lengkap *</label>
                     <input 
                         type="text" 
                         id="customerName" 
@@ -175,9 +47,9 @@
                     >
                 </div>
 
-                <!-- Phone Input -->
-                <div class="input-group">
-                    <label for="customerPhone">Nomor HP</label>
+                <!-- Phone -->
+                <div class="form-group">
+                    <label for="customerPhone">Nomor HP *</label>
                     <input 
                         type="tel" 
                         id="customerPhone" 
@@ -185,12 +57,13 @@
                         placeholder="08xxxxxxxxxx"
                         required
                         pattern="[0-9]{10,13}"
+                        title="Masukkan nomor HP yang valid (10-13 digit)"
                     >
                 </div>
 
-                <!-- Email Input -->
-                <div class="input-group">
-                    <label for="customerEmail">Email</label>
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="customerEmail">Email *</label>
                     <input 
                         type="email" 
                         id="customerEmail" 
@@ -201,17 +74,46 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn-primary">
-                    <span>Lanjut ke Pembayaran</span>
-                    <span class="btn-icon">→</span>
+                <button type="submit" class="btn btn-primary" style="margin-top: 16px;">
+                    Lanjut ke Pembayaran
+                </button>
+
+                <!-- Back Button -->
+                <button 
+                    type="button" 
+                    class="btn btn-secondary" 
+                    onclick="backToPackage()"
+                    style="margin-top: 12px;">
+                    ← Kembali
                 </button>
             </form>
         </div>
 
         <!-- Loading Spinner -->
-        <div class="loading-overlay" id="loading">
-            <div class="loading-spinner"></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
             <p>Memproses pembayaran...</p>
+        </div>
+
+        <!-- Start Button -->
+        <button class="btn btn-primary" id="startBtn" onclick="showCustomerForm()">
+            Pilih Paket
+        </button>
+
+        <!-- Features -->
+        <div class="features" id="featuresSection">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">Cetak foto berkualitas tinggi</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">Soft file dikirim via email</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">Props dan background menarik</div>
+            </div>
         </div>
     </div>
 
