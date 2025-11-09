@@ -7,7 +7,7 @@
  */
 async function startBoothSession() {
     try {
-        console.log('🎬 Starting booth session...');
+        console.log('Starting booth session...');
 
         // Pakai backend proxy untuk avoid CORS
         const apiUrl = `${CONFIG.MIDTRANS.SERVER_URL}/trigger-booth`;
@@ -28,7 +28,7 @@ async function startBoothSession() {
         
         if (data.success) {
             // Success
-            console.log('✅ Booth session started successfully!');
+            console.log('Booth session started successfully!');
             setTimeout(() => {
                 showBoothSuccess();
             }, 1000);
@@ -37,7 +37,7 @@ async function startBoothSession() {
         }
 
     } catch (error) {
-        console.error('❌ Booth Error:', error);
+        console.error('Booth Error:', error);
         
         // Show detailed error
         let errorMessage = error.message;
@@ -46,7 +46,7 @@ async function startBoothSession() {
             errorMessage = 'Tidak dapat terhubung ke dslrBooth.\n\nPastikan:\n1. Software dslrBooth sudah running\n2. Port 1500 terbuka\n3. Backend server running';
         }
         
-        alert(`✅ Pembayaran berhasil!\nOrder ID: ${currentOrderId}\n\n⚠️ Error koneksi ke booth:\n${errorMessage}\n\nSilakan hubungi operator.`);
+        alert(`Pembayaran berhasil!\nOrder ID: ${currentOrderId}\n\n⚠️ Error koneksi ke booth:\n${errorMessage}\n\nSilakan hubungi operator.`);
         
         // Log for troubleshooting
         console.error('Failed to connect to booth:', {
