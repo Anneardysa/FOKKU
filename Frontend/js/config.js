@@ -5,7 +5,7 @@
 const CONFIG = {
     // Midtrans Configuration
     MIDTRANS: {
-        CLIENT_KEY: 'Mid-client-gFbkncebi_hsFuhk',
+        CLIENT_KEY: 'TOKEN_KEY_YANG_BARU',
         SERVER_URL: 'http://localhost:3000/api'
     },
 

@@ -1,24 +1,25 @@
 # Dependencies
-**/node_modules/
+node_modules/
+package-lock.json
+
+# Environment variables
+*.env
+**/.env
+Backend/.env
 
 # Logs
-logs
 *.log
 npm-debug.log*
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 
 # Build output
 dist/
 build/
-out/
 
-# Env files
-.env
-.env.local
-
-# OS / Editor files
+# OS files
 .DS_Store
 Thumbs.db
-
-# Temporary files
-*.tmp
-*.swp
